@@ -142,7 +142,7 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = 'media/'
 
-LOGIN_URL = 'account/login/'
+LOGIN_URL = 'accounts/login/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
