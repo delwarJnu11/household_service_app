@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load rating_tags %}
+{% block page_title %}Service Details{% endblock page_title %}
+{% block content %}
+    <div class="flex gap-4 flex-col md:flex-row items-center mt-5">
+
+        <div class="md:w-1/2 mb-4 md:mb-0">
+            <img src="{{service.image.url}}" alt="Service Image" class="w-full h-auto md:h-full object-cover" />
+        </div>
+
+        <div class="md:w-1/2">
+            <div class="card bg-base-100 px-4">
+                <h2 class="text-2xl font-semibold mb-2">{{service.service_name}}</h2>
+                <p>{{service.description}}</p>
+                {% if service.reviews.exists %}
+                <p class="my-2 "> <strong>Avg. Ratings : {{ service.average_rating|stars }}</strong> </p>
+                {% endif %}
+                <p class="my-2 ">Price: <strong>{{service.price}}</strong> TK.</p>
+                <p class="my-2 ">Category: <strong>{{service.category.name}}</strong></p>
+                <div class="card-actions mt-4">
+                    <a href="{% url "add_to_cart" service.id %}" class="inline-block font-medium text-sm px-6 py-3 leading-none bg-purple-600 rounded text-white border-white hover:border-transparent hover:text-dark hover:bg-red-600 mt-4 lg:mt-0">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="bg-white p-4 rounded-md shadow-md mt-6">
+            
+        <h3 class="font-bold text-xl my-4">Total Reviews: {{reviews | length}}</h3>
+        {% for review in reviews %}
+            <div  class="mb-4">
+                <p class="text-lg font-semibold">
+                    <strong class="font-medium">{{review.customer_name}}</strong>
+                    <small class="text-gray-500 text-sm"> ({{review.created_on|date:"jS F Y h:i A"}})</small>
+                </p>
+                <q class="text-gray-800">{{review.text}}</q>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="mt-6">
+        <h1 class="font-bold text-xl my-4">Leave your Opinion</h1>
+
+        {% load crispy_forms_tags %}
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <!-- {{form|crispy}} -->
+            {% for field in form %}
+                <p class="text-sm font-semibold uppercase py-1">{{field.label_tag}}</p>
+                <p class="w-full focus:border-1 focus:outline">{{field}}</p>
+                <p class="text-red-500 my-2 py-2">{{field.errors|striptags}}</p>
+            {% endfor %}
+            <input class="inline-block font-medium text-base px-6 py-3 leading-none bg-purple-600 rounded text-white border-white hover:border-transparent hover:text-dark hover:bg-red-600 cursor-pointer" type="submit" value="Add Review">
+        </form>
+    </div>
+{% endblock content %}

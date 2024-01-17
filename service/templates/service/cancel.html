@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}Delete Note{% endblock page_title %}
+
+{% block content %}
+    <div class="flex items-center justify-center h-screen">
+        <form method="post" class="w-2/5 p-8 bg-white shadow-md rounded-md">
+            {% csrf_token %}
+            <h1 class="text-2xl font-bold mb-4">Are you sure you want to delete?</h1>
+            {{ form | crispy }}
+            <div class="flex items-center mt-4">
+                <input type="submit" value="Delete" class="inline-block font-medium text-sm px-6 py-3 leading-none bg-red-600 rounded text-white border-white hover:border-transparent hover:text-dark hover:bg-purple-600 mt-4 lg:mt-0 cursor-pointer">
+                <a href="{% url 'cart' %}" class="mx-2 inline-block font-medium text-sm px-6 py-3 leading-none bg-purple-600 rounded text-white border-white hover:border-transparent hover:text-dark hover:bg-gray-600 mt-4 lg:mt-0">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
