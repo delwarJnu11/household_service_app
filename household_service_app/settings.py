@@ -31,6 +31,7 @@ SECRET_KEY = 'django-insecure-dq2^lds%zjysc#%1&@*ccz4^fkpx6w7%m=*rfwxae8n%%wxe2k
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://household-service-q91d.onrender.com/','https://*.127.0.0.1']
 AUTH_USER_MODEL = 'account.UserAccount'
 
 
