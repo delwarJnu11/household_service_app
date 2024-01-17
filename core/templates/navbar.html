@@ -6,16 +6,24 @@
       </div>
       <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
         <li>
-          <a class="block font-semibold mt-4 lg:inline-block lg:mt-0 text-purple-600 hover:text-red-600 hover:font-black mr-4">Home</a>
+          <a href="{% url "home" %}" class="block font-semibold mt-4 lg:inline-block lg:mt-0 text-purple-600 hover:text-red-600 hover:font-black mr-4">Home</a>
         </li>
         <li>
-          <a class="block font-semibold mt-4 lg:inline-block lg:mt-0 text-purple-600 hover:text-red-600 hover:font-black mr-4">
+          <a href="{% url "cart" %}" class="block font-semibold mt-4 lg:inline-block lg:mt-0 text-purple-600 hover:text-red-600 hover:font-black mr-4">
             Cart
           </a>
         </li>
+        {% if request.user.is_staff == True %}
+        <li>
+          <a href="{% url "cart_items" %}" class="block font-semibold mt-4 lg:inline-block lg:mt-0 text-purple-600 hover:text-red-600 hover:font-black mr-4">All Cart Items</a>
+        </li>
+        <li>
+          <a href="{% url "admin" %}" class="block font-semibold mt-4 lg:inline-block lg:mt-0 text-purple-600 hover:text-red-600 hover:font-black mr-4">Make Admin</a>
+        </li>
+        {% endif %}
       </ul>
     </div>
-    <a href="{% url "home" %}" class="text-purple-600 text-xl uppercase font-bold">HouseHold</a>
+    <a href="{% url "home" %}" class="text-purple-600 text-xl uppercase font-bold">HouseBrush</a>
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">

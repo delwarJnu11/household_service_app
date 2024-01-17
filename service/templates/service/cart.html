@@ -29,7 +29,7 @@
             <td>{{ item.customer.email }}</td>
             <th class="flex gap-5">
                 {% if item.is_order_confirm == True %}
-                Processing...
+                Approved
                 {% else %}
                 <a href="{% url "cancel" item.id %}" class="tooltip" data-tip="Cancel Service">
                   <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">

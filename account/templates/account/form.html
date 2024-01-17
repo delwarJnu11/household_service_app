@@ -15,7 +15,7 @@
         {% endif %}
     </div>
     <div class="w-1/2">
-        <h2 class="text-center text-2xl font-semibold my-8">{{title}} To <a class="text-purple-600 font-semibold text-uppercase" href="{% url "home" %}">HouseHold</a></h2>
+        <h2 class="text-center text-2xl font-semibold my-8">{{title}} To <a class="text-purple-600 font-semibold text-uppercase" href="{% url "home" %}">HouseBrush</a></h2>
         <form method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             <!-- {{form|crispy}} -->
