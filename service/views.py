@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import render,redirect,get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views.generic import View,DetailView,ListView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -48,11 +49,12 @@ class ServiceDetailsView(LoginRequiredMixin,DetailView):
 
         return self.render_to_response(self.get_context_data(form=form))
     
-
+@login_required
 def add_to_cart(request, id):
     service = get_object_or_404(Service, id=id)
     user = request.user
-    cart, created = Cart.objects.get_or_create(service = service, customer=user, is_order_confirm=False)
+    if user:
+        cart, created = Cart.objects.get_or_create(service = service, customer=user, is_order_confirm=False)
 
     if not created:
         messages.warning(request, 'Service is already in the Cart')
