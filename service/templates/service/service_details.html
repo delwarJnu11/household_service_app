@@ -15,7 +15,7 @@
                 {% if service.reviews.exists %}
                 <p class="my-2 "> <strong>Avg. Ratings : {{ service.average_rating|stars }}</strong> </p>
                 {% endif %}
-                <p class="my-2 ">Price: <strong>{{service.price}}</strong> TK.</p>
+                <p class="my-2 ">Price: <strong>৳ {{service.price}}</strong></p>
                 <p class="my-2 ">Category: <strong>{{service.category.name}}</strong></p>
                 <div class="card-actions mt-4">
                     <a href="{% url "add_to_cart" service.id %}" class="inline-block font-medium text-sm px-6 py-3 leading-none bg-purple-600 rounded text-white border-white hover:border-transparent hover:text-dark hover:bg-red-600 mt-4 lg:mt-0">Add to Cart</a>
@@ -33,6 +33,7 @@
                     <strong class="font-medium">{{review.customer_name}}</strong>
                     <small class="text-gray-500 text-sm"> ({{review.created_on|date:"jS F Y h:i A"}})</small>
                 </p>
+                <p class="my-2 "> <strong>{{ review.rating|stars }}</strong> </p>
                 <q class="text-gray-800">{{review.text}}</q>
             </div>
         {% endfor %}

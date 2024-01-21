@@ -18,7 +18,7 @@
           <a href="{% url "cart_items" %}" class="block font-semibold mt-4 lg:inline-block lg:mt-0 text-purple-600 hover:text-red-600 hover:font-black mr-4">All Cart Items</a>
         </li>
         <li>
-          <a href="{% url "admin" %}" class="block font-semibold mt-4 lg:inline-block lg:mt-0 text-purple-600 hover:text-red-600 hover:font-black mr-4">Make Admin</a>
+          <a href="{% url 'account:make_admin' %}" class="block font-semibold mt-4 lg:inline-block lg:mt-0 text-purple-600 hover:text-red-600 hover:font-black mr-4">Make Admin</a>
         </li>
         {% endif %}
       </ul>
@@ -40,20 +40,20 @@
           <a href="{% url "cart_items" %}" class="block font-semibold mt-4 lg:inline-block lg:mt-0 text-purple-600 hover:text-red-600 hover:font-black mr-4">All Cart Items</a>
         </li>
         <li>
-          <a href="{% url "admin" %}" class="block font-semibold mt-4 lg:inline-block lg:mt-0 text-purple-600 hover:text-red-600 hover:font-black mr-4">Make Admin</a>
+          <a href="{% url 'account:make_admin' %}" class="block font-semibold mt-4 lg:inline-block lg:mt-0 text-purple-600 hover:text-red-600 hover:font-black mr-4">Make Admin</a>
         </li>
         {% endif %}
-        <div class="flex">
+          <div class="flex">
             <div class="text-purple-600 my-auto  font-black px-5">
-            Welcome, {{ request.user.first_name }} {{ request.user.last_name }}
-        </div>
-        <div class="avatar">
-            <div class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-               {% if request.user.image and request.user.image.url %}
-                  <img src="{{ request.user.image.url }}" />
-                  {% endif %}
+              Welcome, {{ request.user.first_name }} {{ request.user.last_name }}
             </div>
-        </div>
+          <div class="avatar">
+              <div class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                {% if request.user.image and request.user.image.url %}
+                    <img src="{{ request.user.image.url }}" />
+                    {% endif %}
+              </div>
+          </div>
         </div>
     </ul>
   </div>

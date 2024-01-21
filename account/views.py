@@ -52,7 +52,7 @@ class UserLogoutView(View):
         if request.user.is_authenticated:
             logout(request)
             messages.success(self.request, 'user logged out successful.')
-            return redirect('login')
+            return redirect('account:login')
         
 class UserUpdateView(FormView):
     template_name = 'account/form.html'
