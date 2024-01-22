@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth import login, logout
@@ -70,7 +71,7 @@ class UserUpdateView(FormView):
             return redirect('home') 
         return render(request, self.template_name, {'form': form, 'title': 'Update Profile'})
 
-
+@login_required
 def make_admin(request):
     if request.method == 'POST':
         form = AdminForm(request.POST)

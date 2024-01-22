@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from django.views.generic import View,DetailView,ListView,DeleteView
+from django.views.generic import View,DetailView,ListView,DeleteView,UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from service.models import Service,Cart,Review
 from service.forms import ReviewForm
@@ -48,7 +48,21 @@ class ServiceDetailsView(LoginRequiredMixin,DetailView):
             return redirect('details', id=service.id)
 
         return self.render_to_response(self.get_context_data(form=form))
+
+class ReviewUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'service/edit_review.html'
+    form_class = ReviewForm
+    model = Review
     
+    def get_success_url(self):
+        service_id = self.object.service.id
+        return reverse_lazy('review', kwargs={'id': service_id})
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Review updated successful.')
+        return super().form_valid(form)
+    
+
 @login_required
 def add_to_cart(request, id):
     service = get_object_or_404(Service, id=id)
