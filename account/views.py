@@ -1,11 +1,12 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth import login, logout
-from django.views.generic import FormView,View
-from django.contrib.auth.views import LoginView
-from django.contrib.auth.forms import AuthenticationForm
+from django.views.generic import FormView,View,DetailView
+from django.contrib.auth.views import LoginView,PasswordChangeView
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from account.forms import UserRegistrationForm,UserUpdateForm,AdminForm
 from account.models import UserAccount
 from service.views import send_email
@@ -54,8 +55,14 @@ class UserLogoutView(View):
             logout(request)
             messages.success(self.request, 'user logged out successful.')
             return redirect('account:login')
-        
-class UserUpdateView(FormView):
+
+class UserProfileView(LoginRequiredMixin,DetailView):
+    template_name = 'account/profile.html'
+    model = UserAccount
+    context_object_name = 'profile'
+
+
+class UserUpdateView(LoginRequiredMixin,FormView):
     template_name = 'account/form.html'
     form_class = UserUpdateForm
 
@@ -68,8 +75,17 @@ class UserUpdateView(FormView):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully done')
-            return redirect('home') 
+            return redirect('account:profile', pk=request.user.id) 
         return render(request, self.template_name, {'form': form, 'title': 'Update Profile'})
+
+class UserChangePasswordView(LoginRequiredMixin, PasswordChangeView):
+    template_name = 'account/form.html'
+    form_class = PasswordChangeForm
+
+    def form_valid(self, form):
+        send_email(self.request.user, 'password_change', 'You have been changed your password confirmation message', 'service/email.html')
+        messages.success(self.request, 'Password changed successfully done')
+        return redirect('account:profile', pk=self.request.user.id)
 
 @login_required
 def make_admin(request):
