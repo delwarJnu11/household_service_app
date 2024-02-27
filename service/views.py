@@ -42,6 +42,7 @@ class ServiceDetailsView(LoginRequiredMixin,DetailView):
 
         if form.is_valid():
             review = form.save(commit=False)
+            print(review)
             review.service = service
             review.save()
             messages.success(request, 'Review added successfully!')

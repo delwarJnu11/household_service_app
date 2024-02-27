@@ -47,19 +47,33 @@
             </div>
         {% endfor %}
     </div>
-    <div class="mt-6">
-        <h1 class="font-bold text-xl my-4">Leave your Opinion</h1>
+   <div class="mt-6">
+    <h1 class="font-bold text-xl my-4">Leave your Opinion</h1>
 
-        {% load crispy_forms_tags %}
-        <form method="post" novalidate>
-            {% csrf_token %}
-            <!-- {{form|crispy}} -->
-            {% for field in form %}
+    {% load crispy_forms_tags %}
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <!-- {{form|crispy}} -->
+        {% for field in form %}
             <p class="text-sm font-semibold uppercase py-1">{{field.label_tag}}</p>
-            <p class="w-full focus:border-1 focus:outline">{{field}}</p>
+            {% if field.name == 'customer_name' %}
+                <input type="hidden" name="{{ field.name }}" value="{{ request.user.first_name }} {{ request.user.last_name }}">
+                <p class="mt-2">
+                    <input class="w-full focus:border-1 focus:outline" type="text" value="{{ request.user.first_name }} {{ request.user.last_name }}" readonly disabled>
+                </p>
+            {% elif field.name == 'email' %}
+                <input type="hidden" name="{{ field.name }}" value="{{ request.user.email }}">
+                <p class="mt-2">
+                    <input class="w-full focus:border-1 focus:outline" type="email" value="{{ request.user.email }}" readonly disabled>
+                </p>
+            {% else %}
+                <p class="w-full focus:border-1 focus:outline">{{field}}</p>
+            {% endif %}
             <p class="text-red-500 my-2 py-2">{{field.errors|striptags}}</p>
-            {% endfor %}
-            <input class="inline-block font-medium text-base px-6 py-3 leading-none bg-purple-600 rounded text-white border-white hover:border-transparent hover:text-dark hover:bg-red-600 cursor-pointer" type="submit" value="Add Review">
-        </form>
-    </div>
+        {% endfor %}
+        <input class="inline-block font-medium text-base px-6 py-3 leading-none bg-purple-600 rounded text-white border-white hover:border-transparent hover:text-dark hover:bg-red-600 cursor-pointer" type="submit" value="Add Review">
+    </form>
+</div>
+
+
 {% endblock content %}
