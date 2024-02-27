@@ -7,6 +7,22 @@
 {% block content %}
 {% if items|length > 0 %}
   <div class="overflow-x-auto my-10">
+    {% if 'history' in request.path %} 
+      
+      <a href="{% url 'cart' %}">
+        <button class="flex items-center px-4 py-2 bg-red-400 text-black rounded-md focus:outline-none focus:ring-2 focus:ring-red-400">
+          <img class="w-4 h-5 mr-1" src="{% static "images/back.svg" %}" alt="">
+           Go Back
+        </button>
+      </a>
+    {% else %}
+      <a href="{% url 'history' %}">
+        <button class="flex items-center px-4 py-2 bg-purple-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+           <img class="w-4 h-5 mr-1" src="{% static "images/history.svg" %}" alt="">
+          History
+        </button>
+      </a>
+    {% endif %}
   <table class="table">
     <!-- head -->
     <thead>
@@ -20,7 +36,7 @@
     </thead>
     <tbody>
       {% for item in items %}
-        <tr>
+          <tr>
             <td>
                 {{item.service.service_name}}
             </td>
@@ -31,11 +47,12 @@
             <td>{{ item.customer.email }}</td>
             <th class="flex gap-5">
                 {% if item.is_order_confirm == True %}
-                Approved
+                <span class="text-green-500">Approved</span>
                 {% else %}
                 <a href="{% url "cancel" item.id %}" class="tooltip" data-tip="Cancel Service">
-                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
-                  <path d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 37.690466 12.309534 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 13.390466 46 4 36.609534 4 25 C 4 13.390466 13.390466 4 25 4 z M 32.990234 15.986328 A 1.0001 1.0001 0 0 0 32.292969 16.292969 L 25 23.585938 L 17.707031 16.292969 A 1.0001 1.0001 0 0 0 16.990234 15.990234 A 1.0001 1.0001 0 0 0 16.292969 17.707031 L 23.585938 25 L 16.292969 32.292969 A 1.0001 1.0001 0 1 0 17.707031 33.707031 L 25 26.414062 L 32.292969 33.707031 A 1.0001 1.0001 0 1 0 33.707031 32.292969 L 26.414062 25 L 33.707031 17.707031 A 1.0001 1.0001 0 0 0 32.990234 15.986328 z"></path>
+                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50"
+                  style="fill:#FA5252;">
+                  <path d="M25,2C12.319,2,2,12.319,2,25s10.319,23,23,23s23-10.319,23-23S37.681,2,25,2z M33.71,32.29c0.39,0.39,0.39,1.03,0,1.42	C33.51,33.9,33.26,34,33,34s-0.51-0.1-0.71-0.29L25,26.42l-7.29,7.29C17.51,33.9,17.26,34,17,34s-0.51-0.1-0.71-0.29	c-0.39-0.39-0.39-1.03,0-1.42L23.58,25l-7.29-7.29c-0.39-0.39-0.39-1.03,0-1.42c0.39-0.39,1.03-0.39,1.42,0L25,23.58l7.29-7.29	c0.39-0.39,1.03-0.39,1.42,0c0.39,0.39,0.39,1.03,0,1.42L26.42,25L33.71,32.29z"></path>
                   </svg>
                 </a>
                 {% endif %}

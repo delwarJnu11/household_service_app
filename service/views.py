@@ -68,16 +68,21 @@ def add_to_cart(request, id):
     service = get_object_or_404(Service, id=id)
     user = request.user
     if user:
-        cart, created = Cart.objects.get_or_create(service = service, customer=user, is_order_confirm=False)
+        if user.balance >= service.price:
+            cart, created = Cart.objects.get_or_create(service = service, customer=user, is_order_confirm=False)
+            if not created:
+                messages.warning(request, 'Service is already in the Cart')
+                return redirect('home')
+            else:
+                user.balance -= service.price
+                user.save()
+                cart.save()
+                messages.success(request, 'Service added successfully')
+                return redirect('cart')
+        else:
+            messages.error(request, "you do not have sufficient money to buy the service")
 
-    if not created:
-        messages.warning(request, 'Service is already in the Cart')
-    else:
-        cart.save()
-        send_email(user, 'add_to_cart', 'You ordered a service', 'service/email.html')
-        messages.success(request, 'Service added in the Cart')
-
-    return redirect('cart')
+        return redirect('cart')
 
 class Cartview(LoginRequiredMixin, ListView):
     model = Cart
@@ -86,13 +91,28 @@ class Cartview(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user_id = self.request.user.id
-        queryset = Cart.objects.filter(customer = user_id)
+        queryset = Cart.objects.filter(customer = user_id,is_order_confirm=False)
         return queryset
     
 class CartAllItemsView(LoginRequiredMixin, ListView):
     model = Cart
     template_name = 'service/admin_cart.html'
     context_object_name= 'items'
+
+    def get_queryset(self):
+        user_id = self.request.user.id
+        queryset = Cart.objects.filter(is_order_confirm=False)
+        return queryset
+    
+class CartApprovedItemsView(LoginRequiredMixin, ListView):
+    model = Cart
+    template_name = 'service/admin_cart.html'
+    context_object_name= 'items'
+
+    def get_queryset(self):
+        user_id = self.request.user.id
+        queryset = Cart.objects.filter(is_order_confirm=True)
+        return queryset
 
 class CancelServiceView(LoginRequiredMixin,DeleteView):
     model = Cart
@@ -112,6 +132,16 @@ class AdminCancelServiceView(LoginRequiredMixin,DeleteView):
         messages.success(self.request, 'Your service deleted successfully done!!!')
         return super().form_valid(form)
     
+class HistoryView(LoginRequiredMixin, ListView):
+    model = Cart
+    template_name = 'service/cart.html'
+    context_object_name= 'items'
+
+    def get_queryset(self):
+        user_id = self.request.user.id
+        queryset = Cart.objects.filter(customer = user_id, is_order_confirm=True)
+        return queryset
+
 def confirm_oder(request, id):
     cart = get_object_or_404(Cart, id=id)
     cart.is_order_confirm = True

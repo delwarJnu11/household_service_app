@@ -7,7 +7,7 @@ from django.contrib.auth import login, logout
 from django.views.generic import FormView,View,DetailView
 from django.contrib.auth.views import LoginView,PasswordChangeView
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
-from account.forms import UserRegistrationForm,UserUpdateForm,AdminForm
+from account.forms import UserRegistrationForm,UserUpdateForm,AdminForm,DepositForm
 from account.models import UserAccount
 from service.views import send_email
 
@@ -98,10 +98,28 @@ def make_admin(request):
                 user.is_admin = True
                 user.is_staff = True
                 user.save()
-                send_email(user, 'admin', 'You have been made admin confirmed message', 'service/email.html')
+                send_email(user, 'admin', 'You have been made admin confirmation message', 'service/email.html')
                 messages.success(request, 'Admin made successfull')
                 return render(request, 'account/make_admin.html', {'user': user})
     else:
         form = AdminForm()
 
-    return render(request, 'account/make_admin.html', {'form': form})   
+    return render(request, 'account/make_admin.html', {'form': form})  
+
+@login_required
+def deposit(request):
+    if(request.method == 'POST'):
+        form = DepositForm(request.POST)
+        if form.is_valid():
+            amount = form.cleaned_data['amount']
+            user = UserAccount.objects.get(email=request.user.email)
+            print(user)
+            if(user):
+                user.balance += amount
+                user.save()
+                messages.success(request, f'You have deposited {amount}tk successfully done.')
+                send_email(user, 'deposit', 'You have been Deposited in your Housebrush account', 'service/email.html')
+                return redirect('home')
+    else:
+        form = DepositForm() 
+    return render(request, 'account/deposit.html', {'form': form})

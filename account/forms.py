@@ -23,5 +23,8 @@ class AdminForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data.get('email')
         return email
+    
+class DepositForm(forms.Form):
+    amount = forms.DecimalField(max_digits=12)
 
     

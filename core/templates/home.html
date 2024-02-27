@@ -14,6 +14,8 @@
     </div>
 </div>
 
+{% comment %} Service section {% endcomment %}
+
 <div class="mt-10 mb-6">
     <h2 class="text-2xl font-semibold my-8 text-center">Our All Services</h2>
     <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
@@ -32,6 +34,105 @@
             </div>
         </div>
     {% endfor %}
+    </div>
 </div>
+
+{% comment %} gllery section {% endcomment %}
+
+<div class="my-10">
+  <div class="md:w-1/2 mx-auto">
+    <h2 class="text-2xl font-semibold mt-10 mb-4 text-center uppercase">Our Gallery</h2>
+    <p class="text-sm mb-8 text-center">Our some projects. we have finished the projects with 100% client satisfaction.</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div class="relative bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="aspect-w-16 aspect-h-9">
+        <img src="{% static "images/g1.jpg" %}" alt="{{ event.event_name }}" class="object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 transition-opacity duration-300 hover:opacity-100 transform scale-100 hover:scale-120 transition-transform">
+          <div class="text-white text-center p-2">
+            <h2 class="text-lg my-2">House cleaning</h2>
+            <p class="text-sm my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, voluptatum.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="relative bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="aspect-w-16 aspect-h-9">
+        <img src="{% static "images/g2.avif" %}" alt="{{ event.event_name }}" class="object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 transition-opacity duration-300 hover:opacity-100 transform scale-100 hover:scale-120 transition-transform">
+          <div class="text-white text-center p-2">
+            <h2 class="text-lg my-2">Corporate Office cleaning</h2>
+            <p class="text-sm my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, voluptatum.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="relative bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="aspect-w-16 aspect-h-9">
+        <img src="{% static "images/clean5.jpg" %}" alt="{{ event.event_name }}" class="object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 transition-opacity duration-300 hover:opacity-100 transform scale-100 hover:scale-120 transition-transform">
+          <div class="text-white text-center p-2">
+            <h2 class="text-lg my-2">Glass cleaning</h2>
+            <p class="text-sm my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, voluptatum.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="relative bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="aspect-w-16 aspect-h-9">
+        <img src="{% static "images/g4.png" %}" alt="{{ event.event_name }}" class="object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 transition-opacity duration-300 hover:opacity-100 transform scale-100 hover:scale-120 transition-transform">
+          <div class="text-white text-center p-2">
+            <h2 class="text-lg my-2">Best cleaning Team</h2>
+            <p class="text-sm my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, voluptatum.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="relative bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="aspect-w-16 aspect-h-9">
+        <img src="{% static "images/clean5.avif" %}" alt="{{ event.event_name }}" class="object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 transition-opacity duration-300 hover:opacity-100 transform scale-100 hover:scale-120 transition-transform">
+          <div class="text-white text-center p-2">
+            <h2 class="text-lg my-2">House Shifting</h2>
+            <p class="text-sm my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, voluptatum.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="relative bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="aspect-w-16 aspect-h-9">
+        <img src="{% static "images/clean6.jpg" %}" alt="{{ event.event_name }}" class="object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 transition-opacity duration-300 hover:opacity-100 transform scale-100 hover:scale-120 transition-transform">
+          <div class="text-white text-center p-2">
+            <h2 class="text-lg my-2">Office Shifting</h2>
+            <p class="text-sm my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, voluptatum.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="relative bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="aspect-w-16 aspect-h-9">
+        <img src="{% static "images/clean7.jpg" %}" alt="{{ event.event_name }}" class="">
+        <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 transition-opacity duration-300 hover:opacity-100 transform scale-100 hover:scale-120 transition-transform">
+          <div class="text-white text-center p-2">
+            <h2 class="text-lg my-2">Repair Water Line</h2>
+            <p class="text-sm my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, voluptatum.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="relative bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="aspect-w-16 aspect-h-9">
+        <img src="{% static "images/clean8.jpg" %}" alt="{{ event.event_name }}" class="object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 transition-opacity duration-300 hover:opacity-100 transform scale-100 hover:scale-120 transition-transform">
+          <div class="text-white text-center p-2">
+            <h2 class="text-lg my-2">Repair Corporate Line</h2>
+            <p class="text-sm my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, voluptatum.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock content %}

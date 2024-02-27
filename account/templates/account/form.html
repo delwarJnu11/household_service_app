@@ -25,6 +25,11 @@
                 <p class="text-red-500 my-2 py-2">{{field.errors|striptags}}</p>
             {% endfor %}
             <input class="inline-block font-medium text-base px-6 py-3 leading-none bg-purple-600 rounded text-white border-white hover:border-transparent hover:text-dark hover:bg-red-600 cursor-pointer" type="submit" value="{{title}}">
+            {% if 'login' in request.path %}
+            <p class="mt-4">New to HouseBrush ? <a class="text-purple-600" href="{% url "account:register" %}">Register</a></p>
+            {% elif 'register' in request.path %}
+            <p class="mt-4">Already have an account ? <a class="text-purple-600" href="{% url "account:login" %}">Login</a></p>
+            {% endif %}
         </form>
     </div>
 </div>
