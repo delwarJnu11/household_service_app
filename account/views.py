@@ -82,10 +82,13 @@ class UserChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     template_name = 'account/form.html'
     form_class = PasswordChangeForm
 
+    def get_success_url(self):
+        return reverse_lazy('account:profile', kwargs={'pk': self.request.user.id})
+
     def form_valid(self, form):
         send_email(self.request.user, 'password_change', 'You have been changed your password confirmation message', 'service/email.html')
         messages.success(self.request, 'Password changed successfully done')
-        return redirect('account:profile', pk=self.request.user.id)
+        return super().form_valid(form)
 
 @login_required
 def make_admin(request):

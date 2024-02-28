@@ -5,62 +5,62 @@
 {% block page_title %}Cart{% endblock page_title %}
 
 {% block content %}
-{% if items|length > 0 %}
   <div class="overflow-x-auto my-10">
     {% if 'history' in request.path %} 
       
+    <button class="flex items-center px-4 py-2 bg-red-400 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-red-400">
       <a href="{% url 'cart' %}">
-        <button class="flex items-center px-4 py-2 bg-red-400 text-black rounded-md focus:outline-none focus:ring-2 focus:ring-red-400">
-          <img class="w-4 h-5 mr-1" src="{% static "images/back.svg" %}" alt="">
+          <i class="fa-solid fa-arrow-left-long"></i>
            Go Back
-        </button>
       </a>
+    </button>
     {% else %}
-      <a href="{% url 'history' %}">
-        <button class="flex items-center px-4 py-2 bg-purple-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-           <img class="w-4 h-5 mr-1" src="{% static "images/history.svg" %}" alt="">
+    <button class="flex items-center px-4 py-2 bg-purple-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <a href="{% url 'history' %}">
+           <i class="fa-solid fa-clock-rotate-left"></i>
           History
-        </button>
-      </a>
+        </a>
+    </button>
     {% endif %}
-  <table class="table">
-    <!-- head -->
-    <thead>
-      <tr>
-        <th class="font-bold">Service Name</th>
-        <th class="font-bold">Service Price</th>
-        <th class="font-bold">Customer Name</th>
-        <th class="font-bold">Cutsomer Email</th>
-        <th class="font-bold">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in items %}
-          <tr>
-            <td>
-                {{item.service.service_name}}
-            </td>
-            <td>
-                {{item.service.price|floatformat:2|intcomma }}
-            </td>
-            <td>{{item.customer.first_name}} {{item.customer.last_name}}</td>
-            <td>{{ item.customer.email }}</td>
-            <th class="flex gap-5">
-                {% if item.is_order_confirm == True %}
-                <span class="text-green-500">Approved</span>
-                {% else %}
-                <a href="{% url "cancel" item.id %}" class="tooltip" data-tip="Cancel Service">
-                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50"
-                  style="fill:#FA5252;">
-                  <path d="M25,2C12.319,2,2,12.319,2,25s10.319,23,23,23s23-10.319,23-23S37.681,2,25,2z M33.71,32.29c0.39,0.39,0.39,1.03,0,1.42	C33.51,33.9,33.26,34,33,34s-0.51-0.1-0.71-0.29L25,26.42l-7.29,7.29C17.51,33.9,17.26,34,17,34s-0.51-0.1-0.71-0.29	c-0.39-0.39-0.39-1.03,0-1.42L23.58,25l-7.29-7.29c-0.39-0.39-0.39-1.03,0-1.42c0.39-0.39,1.03-0.39,1.42,0L25,23.58l7.29-7.29	c0.39-0.39,1.03-0.39,1.42,0c0.39,0.39,0.39,1.03,0,1.42L26.42,25L33.71,32.29z"></path>
-                  </svg>
-                </a>
-                {% endif %}
-            </th>
+{% if items|length > 0 %}
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th class="font-bold">Service Name</th>
+          <th class="font-bold">Service Price</th>
+          <th class="font-bold">Customer Name</th>
+          <th class="font-bold">Cutsomer Email</th>
+          <th class="font-bold">Action</th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {% for item in items %}
+            <tr>
+              <td>
+                  {{item.service.service_name}}
+              </td>
+              <td>
+                  {{item.service.price|floatformat:2|intcomma }}
+              </td>
+              <td>{{item.customer.first_name}} {{item.customer.last_name}}</td>
+              <td>{{ item.customer.email }}</td>
+              <th class="flex gap-5">
+                  {% if item.is_order_confirm == True %}
+                  <span class="text-green-500">Done</span>
+                  {% else %}
+                  <a href="{% url "cancel" item.id %}" class="tooltip" data-tip="Cancel Service">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50"
+                    style="fill:#FA5252;">
+                    <path d="M25,2C12.319,2,2,12.319,2,25s10.319,23,23,23s23-10.319,23-23S37.681,2,25,2z M33.71,32.29c0.39,0.39,0.39,1.03,0,1.42	C33.51,33.9,33.26,34,33,34s-0.51-0.1-0.71-0.29L25,26.42l-7.29,7.29C17.51,33.9,17.26,34,17,34s-0.51-0.1-0.71-0.29	c-0.39-0.39-0.39-1.03,0-1.42L23.58,25l-7.29-7.29c-0.39-0.39-0.39-1.03,0-1.42c0.39-0.39,1.03-0.39,1.42,0L25,23.58l7.29-7.29	c0.39-0.39,1.03-0.39,1.42,0c0.39,0.39,0.39,1.03,0,1.42L26.42,25L33.71,32.29z"></path>
+                    </svg>
+                  </a>
+                  {% endif %}
+              </th>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 </div>
 {% else %}
   <div class="flex flex-col items-center justify-center md:w-1/2 mx-auto">

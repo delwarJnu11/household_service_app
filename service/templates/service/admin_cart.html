@@ -9,19 +9,19 @@
 <div class="overflow-x-auto">
   {% if 'approved' in request.path %} 
       
-      <a href="{% url 'cart_items' %}">
-        <button class="flex items-center px-4 py-2 bg-red-400 text-black rounded-md focus:outline-none focus:ring-2 focus:ring-red-400 md:my-10">
-          <img class="w-4 h-5 mr-1" src="{% static "images/back.svg" %}" alt="">
-           Go Back
-        </button>
-      </a>
+      <button class="flex items-center px-4 py-2 bg-red-400 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-red-400">
+        <a href="{% url 'cart_items' %}">
+            <i class="fa-solid fa-arrow-left-long"></i>
+            Go Back
+        </a>
+    </button>
     {% else %}
-      <a href="{% url 'approved' %}">
-        <button class="flex items-center px-4 py-2 bg-purple-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 md:my-10">
-           <img class="w-4 h-5 mr-1" src="{% static "images/history.svg" %}" alt="">
+      <button class="flex items-center px-4 py-2 bg-purple-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <a href="{% url 'approved' %}">
+           <i class="fa-solid fa-clock-rotate-left"></i>
           Previous Approved Items
-        </button>
-      </a>
+        </a>
+    </button>
     {% endif %}
   <table class="table">
     <!-- head -->
