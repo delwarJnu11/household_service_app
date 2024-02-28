@@ -5,24 +5,23 @@
 {% block page_title %}Cart Admin{% endblock page_title %}
 
 {% block content %}
-{% if items|length > 0 %}
-<div class="overflow-x-auto">
-  {% if 'approved' in request.path %} 
-      
-      <button class="flex items-center px-4 py-2 bg-red-400 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-red-400">
+{% if 'approved' in request.path %} 
+    <button class="flex items-center my-4 px-4 py-2 bg-red-400 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-red-400">
         <a href="{% url 'cart_items' %}">
             <i class="fa-solid fa-arrow-left-long"></i>
             Go Back
         </a>
     </button>
     {% else %}
-      <button class="flex items-center px-4 py-2 bg-purple-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+      <button class="flex items-center my-4 px-4 py-2 bg-purple-500 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
           <a href="{% url 'approved' %}">
            <i class="fa-solid fa-clock-rotate-left"></i>
           Previous Approved Items
         </a>
     </button>
-    {% endif %}
+{% endif %}
+{% if items|length > 0 %}
+<div class="overflow-x-auto">
   <table class="table">
     <!-- head -->
     <thead>
