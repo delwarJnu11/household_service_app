@@ -83,8 +83,8 @@ def add_to_cart(request, id):
                 return redirect('cart')
         else:
             messages.error(request, "you do not have sufficient money to buy the service")
+            return redirect('home')
 
-        return redirect('cart')
 
 class Cartview(LoginRequiredMixin, ListView):
     model = Cart
@@ -148,6 +148,6 @@ def confirm_oder(request, id):
     cart = get_object_or_404(Cart, id=id)
     cart.is_order_confirm = True
     cart.save()
-    send_email(request.user, 'confirm', 'You order confirmed message', 'service/email.html')
+    send_email(request.user, 'confirm', 'You order confirmation message', 'service/email.html')
     messages.success(request, 'Order Confirm successfull')
     return redirect('cart_items')

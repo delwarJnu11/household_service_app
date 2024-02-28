@@ -103,7 +103,7 @@ def make_admin(request):
                 user.save()
                 send_email(user, 'admin', 'You have been made admin confirmation message', 'service/email.html')
                 messages.success(request, 'Admin made successfull')
-                return render(request, 'account/make_admin.html', {'user': user})
+                return redirect('home')
     else:
         form = AdminForm()
 
