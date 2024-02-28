@@ -79,6 +79,7 @@ def add_to_cart(request, id):
                 user.save()
                 cart.save()
                 messages.success(request, 'Service added successfully')
+                send_email(user, 'add_to_cart', 'You order confirmed message', 'service/email.html')
                 return redirect('cart')
         else:
             messages.error(request, "you do not have sufficient money to buy the service")
